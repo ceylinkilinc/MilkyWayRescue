@@ -12,7 +12,7 @@ class ExitPortal {
     noFill();
     stroke(0, 255, 255);
     strokeWeight(3);
-    ellipse(0, 0, 60, 60); // Halka gibi
+    ellipse(0, 0, 60, 60); 
     popMatrix();
   }
 

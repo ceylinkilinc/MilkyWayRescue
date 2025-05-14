@@ -6,8 +6,8 @@ class Planet {
   Planet(float startX, float startY) {
     x = startX;
     y = startY;
-    img = loadImage("planetMe.png"); // senin görselin
-    img.resize(80, 80); // boyutu ayarlamak istersen değiştir
+    img = loadImage("planetMe.png"); 
+    img.resize(80, 80); 
   }
 
   void update() {

@@ -10,12 +10,12 @@ boolean playEndingAnimation = false;
 float shipX, shipY;
 ArrayList<PVector> otherPlanets = new ArrayList<PVector>();
 int protectionStartTime = 0;
-int protectionDuration = 1000; // 1 saniye = 1000 ms
+int protectionDuration = 1000; 
 boolean endingReady = false;
 float endingStartTime = 0;
 int replayButtonX, replayButtonY, replayButtonW = 150, replayButtonH = 40;
 int exitButtonX, exitButtonY, exitButtonW = 150, exitButtonH = 40;
-float playerAngle = HALF_PI; // 180 derece = güneşin altı (bu senin yerin)
+float playerAngle = HALF_PI; 
 PImage sunFace;
 
 
@@ -34,7 +34,7 @@ PFont retroFont;
 
 void setup() {
   sunFace = loadImage("annoyingSun.png");
-sunFace.resize(90, 90); // boyutu istediğin gibi ayarla
+sunFace.resize(90, 90); 
 
   fullScreen(P3D);
   player = new Planet(width/2, height/2);
@@ -118,7 +118,7 @@ void draw() {
   } else if (playEndingAnimation) {
     drawEndingAnimation();
   } else if (youWin) {
-    // bu artık kullanılmıyor, çünkü animasyona geçiyoruz
+    
   } else {
     updateGame();
   }
@@ -129,7 +129,7 @@ void updateGame() {
   player.update();
   player.display();
 
-  // ⭐ Yıldızlar
+ 
   for (int i = stars.size() - 1; i >= 0; i--) {
     Star s = stars.get(i);
     s.display();
@@ -139,12 +139,12 @@ void updateGame() {
     }
   }
 
-  // 👾 Düşmanlar
+  
   for (Enemy e : enemies) {
     e.update();
     e.display();
 
-    // 🛡️ Koruma aktif değilse çarpma kontrolü yapılır
+    
     if (millis() - protectionStartTime > protectionDuration) {
       if (dist(player.x, player.y, e.x, e.y) < 50) {
         gameOver = true;
@@ -152,7 +152,7 @@ void updateGame() {
     }
   }
 
-  // 🚪 Level geçişi
+ 
   if (stars.size() == 0) {
     if (currentLevel == 1) {
       currentLevel = 2;
@@ -165,7 +165,7 @@ void updateGame() {
     }
   }
 
-  // 🌀 Portal
+  
   if (portalActive) {
     portal.display();
     if (portal.isPlayerInside(player.x, player.y)) {
@@ -173,10 +173,9 @@ void updateGame() {
     }
   }
 
-  // 🖥️ Arayüz
+ 
   displayHUD();
 
-  // 🛡️ Koruma yazısı (HUD dışında)
   if (millis() - protectionStartTime < protectionDuration) {
     textFont(retroFont);
     fill(255, 255, 0);
@@ -185,7 +184,6 @@ void updateGame() {
     text("🛡️ PROTECTED", width / 2, 40);
   }
 
-  // ⏱️ Zamanlayıcı
   if (millis() - lastTimeCheck >= 1000) {
     timeLeft--;
     lastTimeCheck = millis();
@@ -231,7 +229,7 @@ void drawMenu() {
   textSize(20);
   text("Milky Way Rescue", width/2, 100);
 
-  drawRotatingStarsAroundPlayer(); // yeni efekt
+  drawRotatingStarsAroundPlayer(); 
   drawStartButton();
 }
 
@@ -261,14 +259,8 @@ void mousePressed() {
       mouseY > restartButtonY && mouseY < restartButtonY + restartButtonH) {
     restartGame();
   }
-    // Test tuşu: E harfine basınca ending animasyonu açılır
-if (key == 'e' || key == 'E') {
-  gameStarted = true;
-  youWin = true;
-  playEndingAnimation = true;
-  startEndingAnimation();
-}
-// Ending ekranında butonlar aktif
+
+
 if (playEndingAnimation) {
   if (mouseX > replayButtonX && mouseX < replayButtonX + replayButtonW &&
       mouseY > replayButtonY && mouseY < replayButtonY + replayButtonH) {
@@ -280,7 +272,7 @@ if (playEndingAnimation) {
 
   if (mouseX > exitButtonX && mouseX < exitButtonX + exitButtonW &&
       mouseY > exitButtonY && mouseY < exitButtonY + exitButtonH) {
-    exit(); // Processing penceresini kapatır
+    exit(); 
   }
 }
 
@@ -315,18 +307,18 @@ void startEndingAnimation() {
 
   otherPlanets.clear();
   int planetCount = 8;
-  int skipIndex = 2; // boşluk bırakılacak index
+  int skipIndex = 2; 
 
   for (int i = 0; i < planetCount + 1; i++) {
     if (i == skipIndex) continue;
     float angle = i * TWO_PI / (planetCount + 1);
-    otherPlanets.add(new PVector(angle, i)); // sadece açı tut
+    otherPlanets.add(new PVector(angle, i)); 
   }
 }
 
 
 
-// Yalnızca drawEndingAnimation fonksiyonu düzeltilmiştir – diğer kodlar değişmemiştir
+
 
 void drawEndingAnimation() {
   background(0);
@@ -366,7 +358,7 @@ popMatrix();
 
   float t = (millis() - endingStartTime) * 0.001;
 
-  // Eğer henüz yerine gelmediyse kayan gezegen çizilsin
+  
   if (!playerHasArrived) {
     pushMatrix();
     translate(centerX, shipY, 0);
@@ -385,7 +377,7 @@ popMatrix();
     popMatrix();
   }
 
-  // Diğer gezegenler
+ 
   int totalPlanets = 8;
   float angleStep = TWO_PI / totalPlanets;
 
@@ -441,13 +433,13 @@ void drawRotatingStarsAroundPlayer() {
   pushMatrix();
   translate(width/2, height/2, 0);
 
-  // 💫 PNG ile gezegen
+ 
   PImage img = loadImage("planetMe.png");
   img.resize(80, 80);
   imageMode(CENTER);
   image(img, 0, 0);
 
-  // 🌟 Dönen yıldızlar
+ 
   float radius = 100;
   int starCount = 10;
   float angleStep = TWO_PI / starCount;
